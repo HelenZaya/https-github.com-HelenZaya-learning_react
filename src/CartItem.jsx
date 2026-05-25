@@ -32,11 +32,11 @@ function CartItem({ setPage }) {
         <>
           <section className="cart-summary">
             <div>
-              <span>Total plants</span>
+              <span>Total Cart Amount</span>
               <strong>{cartCount}</strong>
             </div>
             <div>
-              <span>Total cost</span>
+              <span>Total Cost</span>
               <strong>${cartTotal.toFixed(2)}</strong>
             </div>
           </section>
@@ -51,11 +51,19 @@ function CartItem({ setPage }) {
                   <p>Item total: ${(item.price * item.quantity).toFixed(2)}</p>
                 </div>
                 <div className="quantity-controls">
-                  <button type="button" onClick={() => dispatch(updateQuantity({ id: item.id, change: -1 }))}>
+                  <button
+                    type="button"
+                    aria-label={`Decrease Quantity for ${item.name}`}
+                    onClick={() => dispatch(updateQuantity({ id: item.id, change: -1 }))}
+                  >
                     -
                   </button>
                   <span>{item.quantity}</span>
-                  <button type="button" onClick={() => dispatch(updateQuantity({ id: item.id, change: 1 }))}>
+                  <button
+                    type="button"
+                    aria-label={`Increase Quantity for ${item.name}`}
+                    onClick={() => dispatch(updateQuantity({ id: item.id, change: 1 }))}
+                  >
                     +
                   </button>
                 </div>
@@ -64,7 +72,7 @@ function CartItem({ setPage }) {
                   type="button"
                   onClick={() => dispatch(removeItem(item.id))}
                 >
-                  Delete
+                  Delete / Remove
                 </button>
                 <button
                   className="visually-hidden"
