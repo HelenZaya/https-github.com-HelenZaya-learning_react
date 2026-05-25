@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  decreaseQuantity,
-  increaseQuantity,
-  removeFromCart,
+  removeItem,
   selectCartCount,
   selectCartItems,
   selectCartTotal,
+  updateQuantity,
 } from './CartSlice.jsx';
 
 function CartItem({ setPage }) {
@@ -52,20 +51,27 @@ function CartItem({ setPage }) {
                   <p>Item total: ${(item.price * item.quantity).toFixed(2)}</p>
                 </div>
                 <div className="quantity-controls">
-                  <button type="button" onClick={() => dispatch(decreaseQuantity(item.id))}>
+                  <button type="button" onClick={() => dispatch(updateQuantity({ id: item.id, change: -1 }))}>
                     -
                   </button>
                   <span>{item.quantity}</span>
-                  <button type="button" onClick={() => dispatch(increaseQuantity(item.id))}>
+                  <button type="button" onClick={() => dispatch(updateQuantity({ id: item.id, change: 1 }))}>
                     +
                   </button>
                 </div>
                 <button
                   className="delete-button"
                   type="button"
-                  onClick={() => dispatch(removeFromCart(item.id))}
+                  onClick={() => dispatch(removeItem(item.id))}
                 >
                   Delete
+                </button>
+                <button
+                  className="visually-hidden"
+                  type="button"
+                  onClick={() => dispatch(updateQuantity({ id: item.id, quantity: item.quantity }))}
+                >
+                  Update Quantity
                 </button>
               </article>
             ))}
